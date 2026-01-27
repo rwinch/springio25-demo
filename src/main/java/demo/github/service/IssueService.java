@@ -20,12 +20,15 @@ import java.util.List;
 
 import demo.github.Assignee;
 import demo.github.Issue;
+import demo.github.NewIssue;
 import demo.github.State;
 
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
+import org.springframework.web.service.annotation.PostExchange;
 
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.nullsLast;
@@ -38,7 +41,9 @@ public interface IssueService {
 			@PathVariable String org, @PathVariable String repo, @RequestParam int milestone,
 			@RequestParam State state);
 
-	@SuppressWarnings("DataFlowIssue")
+	@PostExchange
+	Issue create(@PathVariable String org, @PathVariable String repo, @RequestBody NewIssue issue);
+
 	default List<Issue> getOpenIssuesForMilestone(String org, String repo, int milestone) {
 		List<Issue> issues = getIssuesForMilestone(org, repo, milestone, State.open);
 		issues.sort(comparing(Issue::assignee, nullsLast(comparing(Assignee::login))));

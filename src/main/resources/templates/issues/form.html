@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Issue</title>
+    <link rel="stylesheet" th:href="@{/webjars/picocss__pico/css/pico.min.css}">
+</head>
+<body>
+<main class="container">
+    <div th:replace="~{fragments :: user-header}"></div>
+    <h1>Create a GitHub Issue</h1>
+    <p th:text="|This will create a GitHub issue in ${organization}/${repository}|"></p>
+    <form th:action="@{/issues}" th:object="${issue}" method="post">
+        <div>
+            <label for="title">Title</label>
+            <input id="title" type="text" th:field="*{title}" autofocus/>
+        </div>
+        <div>
+            <label for="body">Body</label>
+            <input id="body" type="text" th:field="*{body}"/>
+        </div>
+        <button type="submit">Create</button>
+    </form>
+</main>
+</body>
+</html>

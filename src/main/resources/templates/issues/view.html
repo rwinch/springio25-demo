@@ -1,0 +1,20 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success!</title>
+    <link rel="stylesheet" th:href="@{/webjars/picocss__pico/css/pico.min.css}">
+</head>
+<body>
+<main class="container">
+    <div th:replace="~{fragments :: user-header}"></div>
+    <article>
+        <h2>Success!</h2>
+        <p>Your issue has been created successfully.</p>
+        <a target="gh" th:href="@{https://github.com/{organization}/{repository}/issues/{number}(organization=${organization},repository=${repository},number=${number})}" role="button">
+            View Issue on GitHub
+        </a>
+    </article>
+</main>
+</body>
+</html>

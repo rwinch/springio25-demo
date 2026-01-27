@@ -1,9 +1,50 @@
 
-Demo and https://github.com/rstoyanchev/springio25-service-registry/blob/main/springio-2025-service-registry.pdf[slides] for https://2025.springio.net/sessions/effortless-spring-interface-clients-with-auto-configuration-and-clients-registry/[Effortless Spring HTTP Interfaces with Client Registry] talk at Spring I/O 2025.
+This is a demo project for the Spring I/O talk:
+https://2025.springio.net/sessions/effortless-spring-interface-clients-with-auto-configuration-and-clients-registry/[Effortless Spring Interface Clients with Auto-Configuration and Clients Registry].
 
-== Additional branches
+== About this Branch
 
-1) For API versioning, see the `versioning` branch.
+This project will sign on using GitHub and then allow you to create an issue on your fork of the repository configured in the application.properties (by default this is spring-framework).
 
-2) For Spring Security support, see the `github-user` and `github-create-issue` branches.
+=== Fork spring-framework
 
+You will need to have a fork of the spring-framework project under your username.
+This ensures that the issues are created on your fork instead of on the actual project.
+If you don't have a fork already, https://github.com/spring-projects/spring-framework/fork[click here] to create it.
+
+=== Enable issues for your fork
+
+Next, you need to ensure that the settings for your fork have issues enabled so that you can create an issue.
+For example, if your username is rwinch, you would visit the URL https://github.com/rwinch/spring-framework/settings
+Scroll down till you see **Features** and ensure that **Issues** is selected.
+
+== Register a new OAuth App
+
+Next, register a new OAuth App as follows:
+
+1) Navigate to https://github.com/settings/applications/new[Register a new OAuth app].
+
+2) Enter the following information for the form (leaving the omitted fields blank):
+
+* *Application name* Spring
+* *Homepage url* http://localhost:8080/
+* *Authorization callback URL* http://localhost:8080/login/oauth2/code/github
+
+3) Create the application
+
+4) Click the *Generate a new client secret button*.
+
+== Set the Client id and Secret
+
+1) Rename or copy `src/main/resources/RENAME-application-secrets.properties` to  `src/main/resources/application-secrets.properties`
+This file is listed `.gitignore` to ensure that it is ignored by Git.
+
+2) Copy the newly generated *Client secret* and paste it into the `src/main/resources/application-secrets.properties` file as the corresponding property's value.
+
+3) Copy the *Client id* and paste it into the `src/main/resources/application-secrets.properties` file as the corresponding property's value.
+
+== Run the application
+
+1) Start the application by running `DemoApplication`
+
+2) Open a browser and go to http://localhost:8080/
