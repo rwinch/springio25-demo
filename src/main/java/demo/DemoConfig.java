@@ -19,7 +19,9 @@ package demo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authorization.EnableMultiFactorAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.authority.FactorGrantedAuthority;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.web.client.support.OAuth2RestClientHttpServiceGroupConfigurer;
 import org.springframework.web.client.support.RestClientHttpServiceGroupConfigurer;
@@ -29,6 +31,7 @@ import org.springframework.web.service.registry.ImportHttpServices;
 @ImportHttpServices(group = "github", basePackages = "demo.github")
 @ImportHttpServices(group = "stackoverflow", basePackages = "demo.stackoverflow")
 @Configuration
+@EnableMultiFactorAuthentication(authorities = {})
 public class DemoConfig {
 
 	@Bean
@@ -54,6 +57,9 @@ public class DemoConfig {
 	@Bean
 	Customizer<HttpSecurity> springSecurity() {
 		return http -> http
+			.authorizeHttpRequests(r -> r
+				.requestMatchers("/settings").hasAllAuthorities(FactorGrantedAuthority.AUTHORIZATION_CODE_AUTHORITY, FactorGrantedAuthority.WEBAUTHN_AUTHORITY)
+			)
 			.webAuthn(webauthn -> webauthn
 				.rpId("localhost")
 				.allowedOrigins("http://localhost:8080")
