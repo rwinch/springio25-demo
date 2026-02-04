@@ -23,6 +23,7 @@ import demo.github.Issue;
 import demo.github.NewIssue;
 import demo.github.State;
 
+import org.springframework.security.oauth2.client.annotation.ClientRegistrationId;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +43,7 @@ public interface IssueService {
 			@RequestParam State state);
 
 	@PostExchange
+	@ClientRegistrationId("github")
 	Issue create(@PathVariable String org, @PathVariable String repo, @RequestBody NewIssue issue);
 
 	default List<Issue> getOpenIssuesForMilestone(String org, String repo, int milestone) {
