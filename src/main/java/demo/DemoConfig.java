@@ -18,6 +18,8 @@ package demo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.web.client.support.OAuth2RestClientHttpServiceGroupConfigurer;
 import org.springframework.web.client.support.RestClientHttpServiceGroupConfigurer;
@@ -48,4 +50,14 @@ public class DemoConfig {
 	OAuth2RestClientHttpServiceGroupConfigurer oauth2Rest(OAuth2AuthorizedClientManager manager) {
 		return OAuth2RestClientHttpServiceGroupConfigurer.from(manager);
 	}
+
+	@Bean
+	Customizer<HttpSecurity> springSecurity() {
+		return http -> http
+			.webAuthn(webauthn -> webauthn
+				.rpId("localhost")
+				.allowedOrigins("http://localhost:8080")
+			);
+	}
+
 }
