@@ -6,7 +6,7 @@
     <nav th:fragment="user-header" th:if="${username != null}">
         <ul></ul>
         <ul>
-            <li><strong th:text="${username}"></strong></li>
+            <li><a th:href="@{/settings}"><strong th:text="${username}"></strong></a></li>
             <li><a th:href="@{/logout}" role="button">Log out</a></li>
         </ul>
     </nav>
