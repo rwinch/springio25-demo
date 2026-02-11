@@ -6,7 +6,15 @@
     <nav th:fragment="user-header" th:if="${username != null}">
         <ul></ul>
         <ul>
-            <li><a th:href="@{/settings}"><strong th:text="${username}"></strong></a></li>
+            <li>
+                <details class="dropdown" role="list">
+                    <summary aria-haspopup="listbox" role="link"><strong th:text="${username}"></strong></summary>
+                    <ul role="listbox">
+                        <li><a th:href="@{/settings}">Settings</a></li>
+                        <li><a th:href="@{/webauthn/register}">Passkeys</a></li>
+                    </ul>
+                </details>
+            </li>
             <li><a th:href="@{/logout}" role="button">Log out</a></li>
         </ul>
     </nav>
